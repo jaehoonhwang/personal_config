@@ -1,33 +1,45 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# Amazon Toolbox path
+export PATH=$HOME/.toolbox/bin:$PATH
+
+# Personal Scripts
+export PATH=$HOME/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/jae/.oh-my-zsh
+export ZSH="/Users/jaehoonh/.oh-my-zsh"
 
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="agnoster"
+ZSH_THEME="powerlevel9k/powerlevel9k"
 
-# Set list of themes to load
-# Setting this variable when ZSH_THEME=random
-# cause zsh load theme from this variable instead of
-# looking in ~/.oh-my-zsh/themes/
-# An empty array have no effect
-ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
 
+# Uncomment the following line to automatically update without prompting.
+# DISABLE_UPDATE_PROMPT="true"
+
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS=true
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -48,39 +60,52 @@ ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Which plugins would you like to load?
+# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git
-  zsh-syntax-highlighting
+   git
+   iterm2
+   python
+   composer
+   man
+   osx
+   zsh-syntax-highlighting
+   zsh-autosuggestions 
 )
 
-#Powerlevel9k Theme
-ZSH_THEME="powerlevel9k/powerlevel9k"
-DEFAULT_USER=$USER
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
-POWERLEVEL9K_SHORTEN_DELIMITER=""
-POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=''
-POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="$  "
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context root_indicator anaconda dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status battery history time)
-POWERLEVEL9K_HOME_ICON=''
-POWERLEVEL9K_HOME_SUB_ICON=''
-POWERLEVEL9K_FOLDER_ICON=''
-
-source $ZSH/oh-my-zsh.sh 
+# Syntax Highlighting
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # User configuration
+
+# Miniconda
+#
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/jaehoonh/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/jaehoonh/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/jaehoonh/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/jaehoonh/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<  
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -97,9 +122,6 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -109,9 +131,61 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# Miniconda
-export PATH="/Users/jae/miniconda3/bin:$PATH"
+# Alias
+alias bb='brazil-build'
+alias bbb='brazil-build build'
+alias daily='./daily_amazon.sh'
+alias ssh-dev='ssh dev-dsk-jaehoonh-2b-c40b9844.us-west-2.amazon.com'
+alias dev-dsk='echo dev-dsk-jaehoonh-2b-c40b9844.us-west-2.amazon.com'
+alias nds='ninja-dev-sync'
+alias codereview='~/.toolbox/bin/cr'
+alias remote_debug='~/bin/remote_debugger.sh'
+alias goto_speechlet='cd /Users/jaehoonh/workspace/AlexaAutomotiveSpeechlet/src'
+alias git_author='git log --pretty=format:"%h%x09%an%x09%ad%x09%s"'
+alias give_me_problem='leetcode show -q mL'
+alias i_have_lots_of_time='leetcode show -q hL'
 
-# Flutter
-export PATH="/Users/jae/Library/flutter/bin:$PATH"
-. /Users/jae/miniconda3/etc/profile.d/conda.sh
+alias vim='/usr/local/bin/mvim -v'
+
+# POWERLEVEL9K Configuration
+POWERLEVEL9K_COLOR_SCHEME="dark"
+POWERLEVEL9K_MODE="awesome-patched"
+
+POWERLEVEL9K_CONTEXT_TEMPLATE='%n'
+POWERLEVEL9K_CONTEXT_DEFAULT_FOREGROUND='white'
+POWERLEVEL9K_BATTERY_CHARGING='yellow'
+POWERLEVEL9K_BATTERY_CHARGED='green'
+POWERLEVEL9K_BATTERY_DISCONNECTED='$DEFAULT_COLOR'
+POWERLEVEL9K_BATTERY_LOW_THRESHOLD='10'
+POWERLEVEL9K_BATTERY_LOW_COLOR='red'
+POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=''
+POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX=' %F{grey}>  '
+POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='yellow'
+POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='yellow'
+POWERLEVEL9K_VCS_UNTRACKED_ICON='?'
+POWERLEVEL9K_DIR_PATH_SEPARATOR="%F{grey} $(print $'\uE0B1') %F{black}"
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
+POWERLEVEL9K_SHORTEN_STRATEGY='truncate_from_right'
+
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs pyenv)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status command_execution_time battery time date)
+
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
+
+POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S}"
+POWERLEVEL9K_TIME_BACKGROUND='white'
+POWERLEVEL9K_DATE_FORMAT="%D{%m/%d/%y}"
+POWERLEVEL9K_DATE_BACKGROUND='green'
+POWERLEVEL9K_RAM_BACKGROUND='yellow'
+POWERLEVEL9K_LOAD_WARNING_VISUAL_IDENTIFIER_COLOR="orange"
+POWERLEVEL9K_LOAD_NORMAL_VISUAL_IDENTIFIER_COLOR="blue"
+POWERLEVEL9K_STATUS_VERBOSE=true
+POWERLEVEL9K_STATUS_CROSS=true
+POWERLEVEL9K_COMMAND_EXECUTION_TIME_BACKGROUND='white'
+POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND='black'
+POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD=0
+POWERLEVEL9K_COMMAND_EXECUTION_TIME_PRECISION=3
+
+source $ZSH/oh-my-zsh.sh
+
