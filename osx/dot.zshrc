@@ -146,6 +146,10 @@ alias give_me_problem='leetcode show -q mL'
 alias i_have_lots_of_time='leetcode show -q hL'
 
 alias vim='/usr/local/bin/mvim -v'
+alias vim-noparse='/usr/local/bin/mvim -v -u NONE'
+alias tmux-yeet='~/.tmux-template'
+alias tmux-kill='tmux kill-server'
+alias ctags="`brew --prefix`/bin/ctags"
 
 # POWERLEVEL9K Configuration
 POWERLEVEL9K_COLOR_SCHEME="dark"

@@ -1,0 +1,23 @@
+#!/bin/zsh
+
+SESSION=`basename $PWD`
+
+tmux -2 new-session -d -s $SESSION -n workwork
+
+tmux rename-window -t $SESSION:1 local
+tmux split-window -v
+
+tmux new-window -t $SESSION -a -n cloud
+tmux split-window -v
+tmux select-window cloud
+tmux selectp -t 1
+tmux send-keys "ssh-dev" C-m
+tmux selectp -t 2
+tmux send-keys "ssh-dev" C-m
+
+
+tmux new-window -t $SESSION -a -n "nds & rd"
+tmux split-window -v
+
+tmux select-window -t $SESSION:1
+tmux -2 attach -t $SESSION

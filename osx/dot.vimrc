@@ -16,6 +16,9 @@ Plugin 'ycm-core/YouCompleteMe'
 Plugin 'kien/ctrlp.vim'
 Plugin 'ajh17/VimCompletesMe'
 Plugin 'rking/ag.vim'
+Plugin 'vim-syntastic/syntastic'
+Plugin 'sheerun/vim-polyglot'
+Plugin 'morhetz/gruvbox'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -50,9 +53,10 @@ filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
 
 " Basic Configuration.
-set tabstop=4
+set tabstop=8
 set shiftwidth=4
 set softtabstop=4
+set hlsearch
 
 set colorcolumn=100
 highlight ColorColumn ctermbg=green guibg=orange
@@ -64,11 +68,15 @@ set ruler
 set number
 set pastetoggle=<F2>
 syntax on 
+" Gruvbox theme
+colorscheme gruvbox
 
 " Basic Mapping
-nnoremap <S-Tab> << 
-inoremap <S-Tab> <C-d>
+let mapleader = " "
+nnorem	<leader>. :CtrlPTag<cr>
+nmap <leader>h :set hlsearch!<cr>
 
+inoremap <S-Tab> <<
 nnoremap <Tab> >>
 
 " NerdTree Configuration
@@ -76,4 +84,15 @@ map <C-n> :NERDTreeToggle<CR>
 
 " You Copmlete Me 
 let g:ycm_global_ycm_extra_conf = "/Users/jaehoonh/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
+let g:ycm_autoclose_preview_window_after_completion=1
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
+" Syntastic Configuration
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
