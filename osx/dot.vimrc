@@ -53,11 +53,12 @@ filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
 
 " Basic Configuration.
-set tabstop=8
+set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set hlsearch
-
+set autochdir " sets the cwd to whatever file is in view.  This allows better
+              " omni completion.
 set colorcolumn=100
 highlight ColorColumn ctermbg=green guibg=orange
 
@@ -67,20 +68,63 @@ hi CursorLine cterm=None ctermbg=darkgrey ctermfg=white
 set ruler
 set number
 set pastetoggle=<F2>
+set nowrap
 syntax on 
+
+set statusline+=%F
+
 " Gruvbox theme
 colorscheme gruvbox
+
+" ag items.  I need the silent ag.
+if executable('ag')
+  " Use ag over grep "
+  set grepprg=ag\ --nogroup\ --nocolor\ --column
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore "
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache "
+  let g:ctrlp_use_caching = 0
+
+  " bind \ (backward slash) to grep shortcut "
+  command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+  nnoremap \ :Ag<SPACE>
+endif
+
 
 " Basic Mapping
 let mapleader = " "
 nnorem	<leader>. :CtrlPTag<cr>
-nmap <leader>h :set hlsearch!<cr>
+nmap <leader>hl :set hlsearch!<cr>
 
-inoremap <S-Tab> <<
+map <leader>h :wincmd h<CR>
+map <leader>j :wincmd j<CR>
+map <leader>k :wincmd k<CR>
+map <leader>l :wincmd l<CR>
+nmap <leader><leader> V
+nmap <leader>v <C-v>
+
+nmap <leader>cp :CtrlP<CR>
+nmap <leader>ag :Ag<SPACE>
+nnoremap <Leader>nt :NERDTreeToggle<Enter>
+nnoremap <silent> <Leader>nf :NERDTreeFind<CR>
+
+"" Indentations
+nnoremap <S-Tab> <<
 nnoremap <Tab> >>
+imap <S-tab> <C-d>
+
+"" For simple sizing of splits.
+map - <C-W>-
+map + <C-W>+
 
 " NerdTree Configuration
 map <C-n> :NERDTreeToggle<CR>
+
+" CtrlP Commands
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+
 
 " You Copmlete Me 
 let g:ycm_global_ycm_extra_conf = "/Users/jaehoonh/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
@@ -96,3 +140,10 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+" Autocompletion
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
