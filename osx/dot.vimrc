@@ -62,8 +62,10 @@ set autochdir " sets the cwd to whatever file is in view.  This allows better
 set colorcolumn=100
 highlight ColorColumn ctermbg=green guibg=orange
 
-set cursorline
-hi CursorLine cterm=None ctermbg=darkgrey ctermfg=white
+" set cursorline
+" hi CursorLine cterm=None ctermbg=darkgrey ctermfg=white
+
+set re=1
 
 set ruler
 set number
@@ -125,7 +127,6 @@ map <C-n> :NERDTreeToggle<CR>
 " CtrlP Commands
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
-
 " You Copmlete Me 
 let g:ycm_global_ycm_extra_conf = "/Users/jaehoonh/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
 let g:ycm_autoclose_preview_window_after_completion=1
@@ -136,6 +137,7 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
+" Synatstic Configuration
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
@@ -147,3 +149,4 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd FileType go setlocal omnifunc=goc#complete#Complete
