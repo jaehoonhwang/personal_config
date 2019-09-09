@@ -1,6 +1,7 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 set encoding=utf-8
+set shell=/bin/bash
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -19,6 +20,7 @@ Plugin 'rking/ag.vim'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'morhetz/gruvbox'
+Plugin 'vim-scripts/ZoomWin'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -56,6 +58,9 @@ filetype plugin indent on    " required
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
+set smartindent
+set autoindent
+
 set hlsearch
 set autochdir " sets the cwd to whatever file is in view.  This allows better
               " omni completion.
@@ -71,6 +76,7 @@ set ruler
 set number
 set pastetoggle=<F2>
 set nowrap
+set tags=./tags;,tags;
 syntax on 
 
 set statusline+=%F
@@ -109,8 +115,9 @@ nmap <leader>v <C-v>
 
 nmap <leader>cp :CtrlP<CR>
 nmap <leader>ag :Ag<SPACE>
-nnoremap <Leader>nt :NERDTreeToggle<Enter>
-nnoremap <silent> <Leader>nf :NERDTreeFind<CR>
+nnoremap <leader>nt :NERDTreeToggle<Enter>
+nnoremap <silent> <leader>nf :NERDTreeFind<CR>
+nnoremap <leader>ct :! ctags -R . <CR> <CR>
 
 "" Indentations
 nnoremap <S-Tab> <<
@@ -123,21 +130,29 @@ map + <C-W>+
 
 " NerdTree Configuration
 map <C-n> :NERDTreeToggle<CR>
+let NERDTreeShowHidden=1
 
 " CtrlP Commands
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-
+let g:ctrlp_extensions = ['tag', 'buffertag']
+"
 " You Copmlete Me 
 let g:ycm_global_ycm_extra_conf = "/Users/jaehoonh/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
 let g:ycm_autoclose_preview_window_after_completion=1
-map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+map <leader>d  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+map <leader>gt   :YcmCompleter GoTo<CR>
+map <leader>gti  :YcmCompleter GoToInclude<CR>
+map <leader>gtc  :YcmCompleter GoToDeclaration<CR>
+map <leader>gtd  :YcmCompleter GoToDefinition<CR>
+map <leader>gtr  :YcmCompleter GoToReferences<CR>
+map <leader>gtt  :YcmCompleter GoToType<CR>
 
 " Syntastic Configuration
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-" Synatstic Configuration
+let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
@@ -149,4 +164,3 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType go setlocal omnifunc=goc#complete#Complete
