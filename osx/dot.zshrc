@@ -8,7 +8,7 @@ export PATH=$HOME/.toolbox/bin:$PATH
 export PATH=$HOME/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/jaehoonh/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -86,26 +86,8 @@ plugins=(
 )
 
 # Syntax Highlighting
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # User configuration
-
-# Miniconda
-#
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/jaehoonh/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/jaehoonh/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/jaehoonh/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/jaehoonh/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<  
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -132,28 +114,17 @@ unset __conda_setup
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Alias
-alias bb='brazil-build'
-alias bbb='brazil-build build'
-alias daily='./daily_amazon.sh'
-alias ssh-dev='ssh dev-dsk-jaehoonh-2b-c40b9844.us-west-2.amazon.com'
-alias dev-dsk='echo dev-dsk-jaehoonh-2b-c40b9844.us-west-2.amazon.com'
-alias nds='ninja-dev-sync'
 alias codereview='~/.toolbox/bin/cr'
-alias remote_debug='~/bin/remote_debugger.sh'
-alias goto_speechlet='cd /Users/jaehoonh/workspace/AlexaAutomotiveSpeechlet/src'
 alias git_author='git log --pretty=format:"%h%x09%an%x09%ad%x09%s"'
-alias give_me_problem='leetcode show -q mL'
-alias i_have_lots_of_time='leetcode show -q hL'
 
-alias vim='/usr/local/bin/mvim -v'
-alias vim-noparse='/usr/local/bin/mvim -v -u NONE'
+alias vim="~/nvim_nightly/nvim-osx64/bin/nvim"
 alias tmux-yeet='~/.tmux-template'
 alias tmux-kill='tmux kill-server'
 alias ctags="`brew --prefix`/bin/ctags"
 
 # POWERLEVEL9K Configuration
 POWERLEVEL9K_COLOR_SCHEME="dark"
-POWERLEVEL9K_MODE="awesome-patched"
+POWERLEVEL9K_MODE="nerdfont-complete"
 
 POWERLEVEL9K_CONTEXT_TEMPLATE='%n'
 POWERLEVEL9K_CONTEXT_DEFAULT_FOREGROUND='white'

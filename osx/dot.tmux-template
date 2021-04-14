@@ -11,8 +11,7 @@ tmux new-window -t $SESSION -a -n cloud
 tmux split-window -v
 tmux select-window cloud
 tmux selectp -t 1
-tmux send-keys "ssh-dev" C-m
-tmux selectp -t 2
+tmux send-keys "ssh-dev" C-m tmux selectp -t 2
 tmux send-keys "ssh-dev" C-m
 
 

@@ -51,7 +51,6 @@ Plug 'dkarter/bullets.vim'
 Plug 'sbdchd/neoformat'
 
 " Langauge Server for your definition needs
-
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 Plug 'tjdevries/nlua.nvim'
