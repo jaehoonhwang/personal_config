@@ -119,6 +119,7 @@ alias codereview='~/.toolbox/bin/cr'
 alias git_author='git log --pretty=format:"%h%x09%an%x09%ad%x09%s"'
 
 alias vim="~/nvim_nightly/nvim-osx64/bin/nvim"
+alias vim-config="vim $HOME/.config/nvim/init.vim"
 alias tmux-yeet='~/.tmux'
 alias tmux-kill='tmux kill-server'
 alias ctags="`brew --prefix`/bin/ctags"
