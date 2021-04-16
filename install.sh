@@ -72,7 +72,7 @@ if [ $machine == "Mac" ]; then
 
     echo "Check if Isoveka nerd font exists"
 
-    if [ ! ls -R ~/Library/Fonts | grep "Nerd Font" ]; then
+    if ! ls -R ~/Library/Fonts | grep "Nerd Font"; then
         echo "Installing Isoevka nerd font through brew"
         brew tap homebrew/cask-fonts 
         brew install font-iosevka-nerd-font || true
@@ -111,4 +111,6 @@ if [ $machine == "Mac" ]; then
 
     echo "Installing Plugins"
     vim +PlugInstall +qall
+
+    source ~/.zshrc
 fi

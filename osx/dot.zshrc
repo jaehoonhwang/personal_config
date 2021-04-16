@@ -121,6 +121,7 @@ alias vim="~/nvim_nightly/nvim-osx64/bin/nvim"
 alias tmux-yeet='~/.tmux-template'
 alias tmux-kill='tmux kill-server'
 alias ctags="`brew --prefix`/bin/ctags"
+alias clc="clear && echo '\e[3J'"
 
 # POWERLEVEL9K Configuration
 POWERLEVEL9K_COLOR_SCHEME="dark"
