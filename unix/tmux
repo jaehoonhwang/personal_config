@@ -2,7 +2,6 @@
 
 WORKSPACE_PATH=""
 
-
 createWindow() {
     session=$1
     window=$2
@@ -29,6 +28,9 @@ createSession() {
 
     echo "Creating session: $cmd"
     eval $cmd
+
+    tmux select-window -t $session $window:0
+    tmux split-window -v
 }
 
 echo "${1}"
@@ -40,8 +42,7 @@ while [ "$#" -gt 0  ]; do
     case "$curr" in 
     "-t")
         createSession temp primary
-        createWindow temp vimmer -c $PWD
-        createWindow temp test -c $PWD
+        tmux -2 attach-session -t temp
         ;;
 
     *) echo "Unavailable commands.... $curr"
