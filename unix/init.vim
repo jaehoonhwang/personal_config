@@ -88,6 +88,8 @@ set wrap breakindent
 set encoding=utf-8
 set number
 set title
+set relativenumber
+set rnu
 
 """ Plugin Configurations
 
