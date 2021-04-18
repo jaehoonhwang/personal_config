@@ -29,7 +29,6 @@ Plug 'tpope/vim-surround'
 Plug 'majutsushi/tagbar'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'ervandew/supertab'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/vim-easy-align'
@@ -39,15 +38,11 @@ Plug 'Yggdroot/indentLine'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'sheerun/vim-polyglot'
-Plug 'chrisbra/Colorizer'
-Plug 'KabbAmine/vCoolor.vim'
 Plug 'heavenshell/vim-pydocstring', { 'do': 'make install' }
 Plug 'vim-scripts/loremipsum'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'metakirby5/codi.vim'
 Plug 'dkarter/bullets.vim'
-Plug 'sbdchd/neoformat'
 
 " Langauge Server for your definition needs
 Plug 'neovim/nvim-lspconfig'
@@ -111,21 +106,11 @@ tmap <C-w> <Esc><C-w>
 autocmd BufWinEnter,WinEnter term://* startinsert
 autocmd BufLeave term://* stopinsert
 
-" Deoplete
-let g:deoplete#enable_at_startup = 1
-" Disable documentation window
-set completeopt-=preview
-
 " vim-pydocstring
 let g:pydocstring_doq_path = '~/.config/nvim/env/bin/doq'
 
 " Supertab
 let g:SuperTabDefaultCompletionType = "<C-n>"
-
-" Ultisnips
-let g:UltiSnipsExpandTrigger="<C-Space>"
-let g:UltiSnipsJumpForwardTrigger="<Tab>"
-let g:UltiSnipsJumpBackwardTrigger="<C-x>"
 
 " EasyAlign
 xmap ga <Plug>(EasyAlign)
@@ -173,6 +158,7 @@ autocmd FileType htmldjango inoremap {# {#  #}<left><left><left>
 " Markdown and Journal
 autocmd FileType markdown setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType journal setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd BufEnter * lua require'completion'.on_attach()
 
 """ Custom Functions
 
@@ -215,7 +201,10 @@ endfunction
 
 """Lsp Config
 
+set completeopt=menuone,noinsert,noselect
 set completeopt-=preview
+set shortmess+=c
+
 
 " use omni completion provided by lsp
 autocmd Filetype python setlocal omnifunc=v:lua.vim.lsp.omnifunc
@@ -257,25 +246,20 @@ nnoremap <Leader>- :vertical resize -5<CR>
 nmap <silent> <leader><leader> :noh<CR>
 nmap <Tab> :bnext<CR>
 nmap <S-Tab> :bprevious<CR>
-
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 nnoremap <Leader>rp :resize 100<CR>
 nnoremap <C-p> :GFiles<CR>
 
-lua << EOF
-require'lspinstall'.setup() -- important
-
-local servers = require'lspinstall'.installed_servers()
-for _, server in pairs(servers) do
-  require'lspconfig'[server].setup{}
-end
-EOF
 
 lua << EOF
 local nvim_lsp = require('lspconfig')
+local nvim_completion = require('completion')
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
+  nvim_completion.on_attach()
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- Mappings.
@@ -317,6 +301,15 @@ local on_attach = function(client, bufnr)
       augroup END
     ]], false)
   end
+end
+EOF
+
+lua << EOF
+require'lspinstall'.setup() -- important
+
+local servers = require'lspinstall'.installed_servers()
+for _, server in pairs(servers) do
+  require'lspconfig'[server].setup{on_attach=require'completion'.on_attach}
 end
 EOF
 
