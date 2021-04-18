@@ -77,7 +77,14 @@ if [ $machine == "Mac" ]; then
         brew tap homebrew/cask-fonts 
         brew install font-iosevka-nerd-font || true
     fi
+
     echo "Moving zshrc script"
+
+    if ! test -f "~/.device_specific.zshrc"; then
+        echo "Device specific zshrc not found; creating a new file.;"
+        cp ./osx/device_specific.zshrc ~/.device_specific.zsrhc
+    fi 
+
     if test -f "~/.zshrc"; then
         echo "Backing dot.zshrc file"
         mv ~/.zshrc ~/.zshrc_backup
