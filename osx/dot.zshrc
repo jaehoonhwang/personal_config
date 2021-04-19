@@ -115,11 +115,11 @@ plugins=(
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Alias
-alias codereview='~/.toolbox/bin/cr'
 alias git_author='git log --pretty=format:"%h%x09%an%x09%ad%x09%s"'
 
 alias vim="~/nvim_nightly/nvim-osx64/bin/nvim"
 alias vim-config="vim $HOME/.config/nvim/init.vim"
+alias vim-zshrc="vim $HOME/.zshrc"
 alias tmux-yeet='~/.tmux'
 alias tmux-kill='tmux kill-server'
 alias ctags="`brew --prefix`/bin/ctags"
@@ -146,8 +146,8 @@ POWERLEVEL9K_DIR_PATH_SEPARATOR="%F{grey} $(print $'\uE0B1') %F{black}"
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
 POWERLEVEL9K_SHORTEN_STRATEGY='truncate_from_right'
 
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs pyenv)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status command_execution_time battery time date)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs virtualenv newline status command_execution_time battery time)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
 
