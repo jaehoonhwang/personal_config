@@ -82,7 +82,7 @@ if [ $machine == "Mac" ]; then
 
     if ! test -f "~/.device_specific.zshrc"; then
         echo "Device specific zshrc not found; creating a new file.;"
-        cp ./osx/device_specific.zshrc ~/.device_specific.zsrhc
+        cp ./osx/device_specific.zshrc ~/.device_specific.zshrc
     fi 
 
     if test -f "~/.zshrc"; then
