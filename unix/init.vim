@@ -173,6 +173,7 @@ autocmd Filetype rs setlocal omnifunc=v:lua.vim.lsp.omnifunc
 
 """ Custom Mappings
 
+nnoremap <SPACE> <Nop>
 let mapleader=" "
 nmap <leader>q :NERDTreeToggle<CR>
 nmap \ <leader>q
@@ -195,9 +196,14 @@ nmap <Tab> :bnext<CR>
 nmap <S-Tab> :bprevious<CR>
 nnoremap <Leader>rp :resize 100<CR>
 nnoremap <C-p> :GFiles<CR>
+imap <C-c> <Esc>
+
+let g:goyo_linenr = 1
+let g:lsp_diagnostics_echo_cursor = 1
 
 
 lua << EOF
+require'lspinstall'.setup() -- important
 local nvim_lsp = require('lspconfig')
 local nvim_completion = require('completion')
 local on_attach = function(client, bufnr)
@@ -247,14 +253,45 @@ local on_attach = function(client, bufnr)
     ]], false)
   end
 end
-EOF
 
-lua << EOF
-require'lspinstall'.setup() -- important
+local function make_config()
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
+  return {
+    -- enable snippet support
+    capabilities = capabilities,
+    -- map buffer local keybindings when the language server attaches
+    on_attach = on_attach,
+  }
+end
 
-local servers = require'lspinstall'.installed_servers()
-for _, server in pairs(servers) do
-  require'lspconfig'[server].setup{on_attach=on_attach}
+-- lsp-install
+local function setup_servers()
+  require'lspinstall'.setup()
+
+  -- get all installed servers
+  local servers = require'lspinstall'.installed_servers()
+
+  for _, server in pairs(servers) do
+    local config = make_config()
+
+    -- language specific config
+    if server == "sourcekit" then
+      config.filetypes = {"swift", "objective-c", "objective-cpp"}; -- we don't want c and cpp!
+    end
+    if server == "clangd" then
+      config.filetypes = {"c", "cpp"}; -- we don't want objective-c and objective-cpp!
+    end
+
+    require'lspconfig'[server].setup(config)
+  end
+end
+
+setup_servers()
+
+-- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
+require'lspinstall'.post_install_hook = function ()
+  setup_servers() -- reload installed servers
+  vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
 end
 EOF
-
