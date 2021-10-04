@@ -1,6 +1,5 @@
 require'lspinstall'.setup()
-nvim_lsp = require('lspconfig')
-cmp = require('cmp')
+local cmp = require('cmp')
 
 local function on_attach(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
@@ -23,29 +22,30 @@ local function on_attach(client, bufnr)
   end
 end
 
-local function setup_cmp(cmp)
-    local snippet = {
-        expand = function(args)
-        vim.fn["UltiSnips#Anon"](args.body)
-        end, }
-    local mapping = {
-        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-e>'] = cmp.mapping.close(),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }), }
-    local sources = {
-        { name = 'nvim_lsp' },
-        { name = 'ultisnips' },
-        { name = 'buffer' },
-    }
+local snippet = {
+    expand = function(args)
+    vim.fn["UltiSnips#Anon"](args.body)
+    end,
+}
+local mapping = {
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.close(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true })
+}
 
-    cmp.setup({
-            snippet = snippet,
-            mapping = mapping,
-            sources = sources,
-        })
-end
+local sources = {
+    { name = 'nvim_lsp' },
+    { name = 'ultisnips' },
+    { name = 'buffer' },
+}
+
+cmp.setup({
+    snippet = snippet,
+    mapping = mapping,
+    sources = sources,
+})
 
 local function make_config()
     return {
@@ -80,7 +80,7 @@ end
 
 -- Start of lua
 
-setup_cmp(cmp)
+setup_servers()
 
 require'lspinstall'.post_install_hook = function ()
     setup_servers()
