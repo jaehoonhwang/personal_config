@@ -43,8 +43,7 @@ if [ $machine == "Mac" ]; then
         mv ~/.tmux.conf ~/.tmux_backup.conf
     fi
 
-    cp ./unix/dot.tmux.conf ~/.tmux.conf
-    cp ./unix/tmux ~/.tmux
+    cp ./tmux/dot.tmux.conf ~/.tmux.conf
 
     echo "Checking if zsh is installed"
     if ! command -v zsh &> /dev/null
@@ -69,6 +68,8 @@ if [ $machine == "Mac" ]; then
         git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
         echo "Installing syntax highlighting for zsh"
         git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+        echo "Installing zzsh-autosuggestion"
+        git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
         pip install --user powerline-status
     fi
 
@@ -146,8 +147,7 @@ if [ $machine == "Linux" ]; then
         mv ~/.tmux.conf ~/.tmux_backup.conf
     fi
 
-    cp ./unix/dot.tmux.conf ~/.tmux.conf
-    cp ./unix/tmux ~/.tmux
+    cp ./tmux/dot.tmux.conf ~/.tmux.conf
 
     echo "Checking if zsh is installed"
     if ! command -v zsh &> /dev/null
@@ -172,6 +172,8 @@ if [ $machine == "Linux" ]; then
         git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
         echo "Installing syntax highlighting for zsh"
         git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+        echo "Installing auto suggestions for zsh"
+        git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
         pip install --user powerline-status
     fi
 
@@ -190,7 +192,7 @@ if [ $machine == "Linux" ]; then
 
     if ! test -f "~/.device_specific.zshrc"; then
         echo "Device specific zshrc not found; creating a new file.;"
-        cp ./osx/device_specific.zshrc ~/.device_specific.zshrc
+        touch $HOME/.device_specific.zshrc
     fi
 
     if test -f "~/.zshrc"; then
