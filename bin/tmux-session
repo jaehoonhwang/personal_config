@@ -1,13 +1,9 @@
 #!/usr/bin/env bash
 
-GITHUB="/Users/jae/Documents/Github"
-WORKSPACE="$HOME/workspace"
-PERSONAL="$HOME/personal"
-
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find $GITHUB $WORKSPACE $PERSONAL -mindepth 1 -maxdepth 1 -type d | fzf)
+    selected=$(find $GITHUB_DIR $WORKSPACE_DIR $NVIM_DIR -mindepth 1 -maxdepth 1 -type d | fzf)
 fi
 
 if [[ -z $selected ]]; then
@@ -25,6 +21,8 @@ fi
 
 if ! tmux has-session -t $selected_name 2> /dev/null; then
     tmux new-session -ds $selected_name -c $selected
+    tmux split-window -h -t $selected_name -c $selected
+    tmux -2 attach-session -t $selected_name -c $selected
 fi
 
 if [[ -z $TMUX ]]; then

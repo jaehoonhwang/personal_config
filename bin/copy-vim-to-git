@@ -5,6 +5,9 @@ set -e
 CURRENT_DIRECTORY=$(pwd)
 
 PERSONAL_CONFIG_DIR="$GITHUB_DIR/personal_config"
+
+PERSONAL_CONFIG_TMUX="$PERSONAL_CONFIG_DIR/tmux/dot.tmux.conf"
+PERSONAL_CONFIG_BIN="$PERSONAL_CONFIG_DIR/bin/"
 PERSONAL_CONFIG_NVIM="$PERSONAL_CONFIG_DIR/nvim"
 PERSONAL_CONFIG_NVIM_PLUGIN="$PERSONAL_CONFIG_NVIM/plugin/"
 PERSONAL_CONFIG_NVIM_LUA="$PERSONAL_CONFIG_NVIM/lua/galbie/"
@@ -13,6 +16,10 @@ NVIM_CONFIG="$HOME/.config/nvim"
 NVIM_INIT="$NVIM_CONFIG/init.vim"
 NVIM_PLUGIN="$NVIM_CONFIG/plugin/"
 NVIM_LUA="$NVIM_CONFIG/lua/galbie/"
+
+TMUX_CONFIG="$HOME/.tmux.conf"
+
+BASH_DIR="$HOME/bin/"
 
 machine=`hostname`
 
@@ -33,13 +40,19 @@ cp -r $NVIM_PLUGIN $PERSONAL_CONFIG_NVIM_PLUGIN
 echo "Copying lua; from $NVIM_LUA to $PERSONAL_CONFIG_NVIM_LUA"
 cp -r $NVIM_LUA $PERSONAL_CONFIG_NVIM_LUA
 
+echo "Copying tmux configuration from $TMUX_CONFIG to $PERSONAL_CONFIG_TMUX"
+cp $TMUX_CONFIG $PERSONAL_CONFIG_TMUX
+
+echo "Copying bash scripts from $PERSONAL_CONFIG_BIN to $BASH_DIR"
+cp -r $BASH_DIR $PERSONAL_CONFIG_BIN
+
 echo "Should be good to commit now; changing directory to $PERSONAL_CONFIG_DIR"
 cd $PERSONAL_CONFIG_DIR
 
 if [[ `git status --porcelain` ]]; then
     echo "Change has been detected - commiting and pushing"
     git add .
-    git commit -m "[NVIM] $machine $(date +%s)"
+    git commit -m "[NVIM/TMUX] $machine $(date +%s)"
     git push
 else
     echo "No change detected - exiting"
