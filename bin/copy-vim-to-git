@@ -1,0 +1,48 @@
+#!/bin/sh
+
+set -e
+
+CURRENT_DIRECTORY=$(pwd)
+
+PERSONAL_CONFIG_DIR="$GITHUB_DIR/personal_config"
+PERSONAL_CONFIG_NVIM="$PERSONAL_CONFIG_DIR/nvim"
+PERSONAL_CONFIG_NVIM_PLUGIN="$PERSONAL_CONFIG_NVIM/plugin/"
+PERSONAL_CONFIG_NVIM_LUA="$PERSONAL_CONFIG_NVIM/lua/galbie/"
+
+NVIM_CONFIG="$HOME/.config/nvim"
+NVIM_INIT="$NVIM_CONFIG/init.vim"
+NVIM_PLUGIN="$NVIM_CONFIG/plugin/"
+NVIM_LUA="$NVIM_CONFIG/lua/galbie/"
+
+machine=`hostname`
+
+if [[ -z "${GITHUB_DIR}" ]]; then
+    echo "GITHUB_DIR does not exists $GITHUB_DIR"
+    exit -1
+fi
+
+echo "Trying to copy vim configurations to git"
+echo "Github directory: ${GITHUB_DIR} | package: ${PERSONAL_CONFIG_NAME}"
+
+echo "Copying init.vim; from $NVIM_INIT to $PERSONAL_CONFIG_NVIM"
+cp $NVIM_INIT $PERSONAL_CONFIG_NVIM
+
+echo "Copying plugins; from $NVIM_PLUGIN to $PERSONAL_CONFIG_NVIM_PLUGIN"
+cp -r $NVIM_PLUGIN $PERSONAL_CONFIG_NVIM_PLUGIN
+
+echo "Copying lua; from $NVIM_LUA to $PERSONAL_CONFIG_NVIM_LUA"
+cp -r $NVIM_LUA $PERSONAL_CONFIG_NVIM_LUA
+
+echo "Should be good to commit now; changing directory to $PERSONAL_CONFIG_DIR"
+cd $PERSONAL_CONFIG_DIR
+
+if [[ `git status --porcelain` ]]; then
+    echo "Change has been detected - commiting and pushing"
+    git add .
+    git commit -m "[NVIM] $machine $(date +%s)"
+    git push
+else
+    echo "No change detected - exiting"
+fi
+
+cd $CURRENT_DIRECTORY
