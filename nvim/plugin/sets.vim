@@ -34,3 +34,12 @@ set undofile
 "Lsp Config
 set completeopt=menuone,noinsert,noselect
 set shortmess+=c
+
+"No Fold ?
+set lazyredraw
+
+" Gotta go fast
+set timeoutlen=1000
+set ttimeoutlen=25
+
+set t_Co=256

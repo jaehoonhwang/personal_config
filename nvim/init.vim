@@ -83,12 +83,14 @@ nmap <leader>w :TagbarToggle<CR>
 nnoremap <leader>u :UndotreeToggle<CR>
 
 nmap <leader>r :so ~/.config/nvim/init.vim<CR>
-nmap <leader>g :Goyo<CR>
 
 nnoremap <Leader>= :vertical resize +5<CR>
 nnoremap <Leader>- :vertical resize -5<CR>
 nnoremap <Leader>rp :resize 100<CR>
+
 nmap \ :NERDTreeToggle<CR>
+nmap <leader>nt :NERDTreeToggle<CR>
+nmap <leader>nf :NERDTreeFind<CR>
 
 "" system yoink
 nnoremap <leader>y "+y
@@ -120,6 +122,11 @@ inoremap ; ;<c-g>u
 inoremap : :<c-g>u
 inoremap & &<c-g>u
 
+:command WQ wq
+:command Wq wq
+:command W w
+:command Q q
+
 " jumplist
 nnoremap <expr>k (v:count > 5 ? "m'" . v:count : "") . 'k'
 nnoremap <expr>j (v:count > 5 ? "m'" . v:count : "") . 'j'
@@ -133,12 +140,21 @@ vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '>-2<CR>gv=gv
 inoremap <C-j> :m .+1<CR>==
 inoremap <C-k> :m .-2<CR>==
-nnoremap <leader>j :m .+1<CR>==
-nnoremap <leader>k :m .-2<CR>==
+" Conflict with loclist; nnoremap <leader>j :m .+1<CR>==
+" Conflict with loclist; nnoremap <leader>k :m .-2<CR>==
+
+"yeet the registers
+nnoremap <leader>cr :call EmptyRegisters()<CR>
 
 augroup THE_PRIMEAGEN
     autocmd!
     autocmd BufWritePre lua Neoformat
     autocmd BufWritePre * %s/\s\+$//e
-    " autocmd BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{}
 augroup END
+
+fun! EmptyRegisters()
+    let regs=split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-"', '\zs')
+    for r in regs
+        call setreg(r, [])
+    endfor
+endfun
