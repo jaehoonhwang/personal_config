@@ -1,9 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Amazon Toolbox path
-export PATH=$HOME/.toolbox/bin:$PATH
-
 # Personal Scripts
 export PATH=$HOME/bin:$PATH
 
@@ -83,7 +80,7 @@ plugins=(
    man
    osx
    zsh-syntax-highlighting
-   zsh-autosuggestions 
+   zsh-autosuggestions
 )
 
 # Syntax Highlighting

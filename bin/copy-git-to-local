@@ -1,0 +1,43 @@
+#!/bin/sh
+
+set -e
+set -x
+
+PERSONAL_CONFIG_DIR="$GITHUB_DIR/personal_config"
+
+PERSONAL_CONFIG_TMUX="$PERSONAL_CONFIG_DIR/tmux/dot.tmux.conf"
+PERSONAL_CONFIG_BIN="$PERSONAL_CONFIG_DIR/bin"
+PERSONAL_CONFIG_ZSH="$PERSONAL_CONFIG_DIR/zsh"
+PERSONAL_CONFIG_NVIM="$PERSONAL_CONFIG_DIR/nvim"
+
+NVIM_CONFIG="$HOME/.config"
+BASH_DIR="$HOME/bin"
+
+if ! test -f "~/.device_specific.zshrc"; then
+    echo "Device specific zshrc not found; creating a new file.;"
+    touch $HOME/.device_specific.zshrc
+fi
+
+if [ -z "${GITHUB_DIR}" ]; then
+    echo "GITHUB_DIR does not exists $GITHUB_DIR"
+    exit -1
+fi
+
+echo "Copying zshrc file."
+
+cp "$PERSONAL_CONFIG_ZSH/dot.zshrc" $HOME/.zshrc
+
+echo "Copying nvim configuration"
+
+mkdir -p $HOME/.config/nvim/plugin/
+mkdir -p $HOME/.config/nvim/lua/galbie/
+
+cp -r $PERSONAL_CONFIG_NVIM $NVIM_CONFIG
+
+echo "Copying personal bin configuration"
+
+cp -r $PERSONAL_CONFIG_BIN $HOME
+
+echo "Copying tmux configuration"
+
+cp $PERSONAL_CONFIG_TMUX "$HOME/.tmux.conf"
