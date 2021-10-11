@@ -18,6 +18,8 @@ Plug 'morhetz/gruvbox'
 " Functionalities
 "" git
 Plug 'tpope/vim-fugitive'
+"" git diff viewer
+Plug 'airblade/vim-gitgutter'
 "" super nocompatible
 Plug 'tpope/vim-sensible'
 "" auto surrounds for things
@@ -60,6 +62,8 @@ Plug 'kabouzeid/nvim-lspinstall'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/nvim-cmp'
+
+Plug 'ThePrimeagen/harpoon'
 
 call plug#end()
 
