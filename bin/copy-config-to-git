@@ -1,6 +1,7 @@
 #!/bin/sh
 
 set -e
+set -x
 
 CURRENT_DIRECTORY=$(pwd)
 
@@ -22,6 +23,8 @@ TMUX_CONFIG="$HOME/.tmux.conf"
 BASH_DIR="$HOME/bin/"
 
 machine=`hostname`
+
+cd $PERSONAL_CONFIG_DIR
 
 if [[ -z "${GITHUB_DIR}" ]]; then
     echo "GITHUB_DIR does not exists $GITHUB_DIR"
@@ -58,4 +61,4 @@ else
     echo "No change detected - exiting"
 fi
 
-cd $CURRENT_DIRECTORY
+popd
