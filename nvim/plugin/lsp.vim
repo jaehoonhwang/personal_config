@@ -1,4 +1,4 @@
-set completeopt=menuone,noselect
+set completeopt=menu,menuone,noselect
 
 let g:lsp_diagnostics_echo_cursor = 1
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
@@ -13,12 +13,5 @@ nnoremap <leader>vca :lua vim.lsp.buf.code_action()<CR>
 nnoremap <leader>vsd :lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 nnoremap <leader>vn :lua vim.lsp.diagnostic.goto_next()<CR>
 nnoremap <leader>vll :call LspLocationList()<CR>
+nnoremap <leader>fc :Neoformat<CR>
 
-fun! LspLocationList()
-    lua vim.lsp.diagnostic.set_loclist({open_loclist = false})
-endfun
-
-augroup THE_PRIMEAGEN_LSP
-    autocmd!
-    autocmd! BufWrite,BufEnter,InsertLeave * :call LspLocationList()
-augroup END

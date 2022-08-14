@@ -1,7 +1,7 @@
 set encoding=utf-8
 
 " Set tabs
-set tabstop=4 softtabstop=4 shiftwidth=4 expandtab smarttab autoindent
+set tabstop=2 softtabstop=2 shiftwidth=2 expandtab smarttab autoindent
 
 " Search
 set incsearch nohlsearch

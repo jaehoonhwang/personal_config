@@ -1,4 +1,4 @@
-""" Optixal's Neovim Init.vim (modified)
+"""""" Optixal's Neovim Init.vim (modified)
 
 """ Vim-Plug
 call plug#begin()
@@ -8,8 +8,7 @@ call plug#begin()
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 "" Make NerdTreee file look nice
-Plug 'ryanoasis/vim-devicons'
-"" Distraction free setting
+Plug 'ryanoasis/vim-devicons' "" Distraction free setting
 Plug 'junegunn/goyo.vim'
 "" Color scheme
 Plug 'flazz/vim-colorschemes'
@@ -41,7 +40,7 @@ Plug 'sheerun/vim-polyglot'
 "" tab for auto complete
 Plug 'ervandew/supertab'
 "" boilerplate for codes
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 "" bullet stuff
 Plug 'dkarter/bullets.vim'
@@ -58,13 +57,16 @@ Plug 'nvim-treesitter/nvim-treesitter'
 
 " Langauge Server for your definition needs
 Plug 'neovim/nvim-lspconfig'
-Plug 'kabouzeid/nvim-lspinstall'
+Plug 'williamboman/nvim-lsp-installer'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
+" Prettier
+Plug 'sbdchd/neoformat'
 
 Plug 'ThePrimeagen/harpoon'
-
 call plug#end()
 
 """ Python3 VirtualEnv
@@ -73,7 +75,7 @@ let g:python3_host_prog = expand('~/.config/nvim/env/bin/python')
 syntax on
 set bg=dark
 let g:gruvbox_dark_contrast="hard"
-autocmd vimenter * ++nested colorscheme gruvbox
+" autocmd vimenter * ++nested colorscheme gruvbox
 colorscheme gruvbox
 
 lua require('galbie')
@@ -131,9 +133,9 @@ inoremap & &<c-g>u
 :command W w
 :command Q q
 
-" jumplist
-nnoremap <expr>k (v:count > 5 ? "m'" . v:count : "") . 'k'
-nnoremap <expr>j (v:count > 5 ? "m'" . v:count : "") . 'j'
+" " jumplist
+" nnoremap <expr>k (v:count > 5 ? "m'" . v:count : "") . 'k'
+" nnoremap <expr>j (v:count > 5 ? "m'" . v:count : "") . 'j'
 
 " yeet into null registry
 noremap <leader>d "_d
@@ -144,17 +146,12 @@ vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '>-2<CR>gv=gv
 inoremap <C-j> :m .+1<CR>==
 inoremap <C-k> :m .-2<CR>==
-" Conflict with loclist; nnoremap <leader>j :m .+1<CR>==
-" Conflict with loclist; nnoremap <leader>k :m .-2<CR>==
 
-"yeet the registers
+"yeet the registers; short for Clear Register (CR)
 nnoremap <leader>cr :call EmptyRegisters()<CR>
 
-augroup THE_PRIMEAGEN
-    autocmd!
-    autocmd BufWritePre lua Neoformat
-    autocmd BufWritePre * %s/\s\+$//e
-augroup END
+nnoremap <leader>cwd :NERDTreeCWD <CR>
+nnoremap <leader>pwd :lcd%:p:h <CR>
 
 fun! EmptyRegisters()
     let regs=split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-"', '\zs')
@@ -162,3 +159,8 @@ fun! EmptyRegisters()
         call setreg(r, [])
     endfor
 endfun
+
+augroup fmt
+  autocmd!
+  autocmd BufWritePre * undojoin | Neoformat
+augroup END

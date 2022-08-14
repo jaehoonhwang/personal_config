@@ -1,0 +1,20 @@
+export PYTHON_VENV_DIR="$HOME/.python/env"
+export WORKSPACE_DIR="$HOME/workspace"
+export NVIM_DIR="$HOME/.config"
+export JAVA_HOME='/Library/Java/JavaVirtualMachines/openjdk-8.jdk/Contents/Home'
+export PERSONAL_MONOLITH="$HOME/Monolith"
+
+# Custom directory
+alias goto-ws="cd $WORKSPACE_DIR"
+alias goto-github="cd $GITHUB_DIR"
+alias goto-vim="cd $HOME/.config/nvim"
+
+alias @findme="$HOME/venv/findme-django/bin/"
+
+# Python Virutal environment
+alias venv_flask="source $PYTHON_VENV_DIR/findme-flask/bin/activate"
+
+# virtual env for ter
+alias ter-python="source $HOME/.python/env/ter/bin/activate"
+
+alias podman-start="podman machine init && podman machine start"
