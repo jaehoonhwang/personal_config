@@ -194,32 +194,6 @@ f() {
 # Like f, but not recursive.
 fm() f "$@" --max-depth 1
 
-# Deps
-alias fz="fzf-noempty --bind 'tab:toggle,shift-tab:toggle+beginning-of-line+kill-line,ctrl-j:toggle+beginning-of-line+kill-line,ctrl-t:top' --color=light -1 -m"
-fzf-noempty () {
-	local in="$(</dev/stdin)"
-	test -z "$in" && (
-		exit 130
-	) || {
-		ec "$in" | fzf "$@"
-	}
-}
-
-ec () {
-	if [[ -n $ZSH_VERSION ]]
-	then
-		print -r -- "$@"
-	else
-		echo -E -- "$@"
-	fi
-}
-
-
-# fh - repeat history
-fh() {
-  eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed -E 's/ *[0-9]*\*? *//' | sed -E 's/\\/\\\\/g')
-}
-
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.device_specific.zshrc
 source $ZSH/oh-my-zsh.sh
