@@ -17,7 +17,6 @@ ts.setup {
     "go",
     "html",
     "java",
-    "json",
     "lua",
     "markdown",
     "proto",

@@ -88,7 +88,7 @@ local function setup_servers()
   -- local servers = require'lspinstall'.installed_servers()
 
   local servers = { 'bashls', 'dockerls', 'eslint', 'gopls', 'clangd',
-    'lemminx', 'ltex', 'angularls', 'ansiblels', 'cmake', 'dotls', 'sqls',
+    'lemminx', 'ltex', 'angularls', 'ansiblels', 'cmake', 'dotls', 'sqls', 'javascript',
     'prosemd_lsp', 'pylsp', 'rust_analyzer', 'sumneko_lua', 'jsonls', 'jdtls', 'html', 'grammarly' }
   for _, server in pairs(servers) do
     local config = make_config()
