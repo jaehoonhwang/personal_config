@@ -1,3 +1,5 @@
+local prefix = vim.env.XDG_CONFIG_HOME or vim.fn.expand("~/.config")
+
 vim.opt.encoding = 'utf-8'
 
 -- Set tab options.
@@ -40,7 +42,7 @@ vim.opt.colorcolumn = "80"
 -- Stop using swap files and no backup; everythign should be stored @ undodir
 vim.opt.backup = false
 vim.opt.swapfile = false
-vim.opt.undodir = "~/.vim/undodir"
+vim.opt.undodir = { prefix .. "/.vim/undodir//" }
 vim.opt.undofile = true
 
 -- Lsp Config

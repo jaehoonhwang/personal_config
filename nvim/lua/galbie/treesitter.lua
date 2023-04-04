@@ -24,6 +24,7 @@ ts.setup {
     "regex",
     "rust",
     "tsx",
+    "vim",
     "toml",
     "yaml",
   },

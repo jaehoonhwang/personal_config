@@ -72,8 +72,8 @@ packer.startup(function(use)
   use 'glepnir/lspsaga.nvim'
   -- snip
   use 'L3MON4D3/LuaSnip'
-  -- Prettier
-  use 'sbdchd/neoformat'
+  -- Prettier; already supported by null-ls
+  -- use 'mhartington/formatter.nvim'
   -- linter
-  use 'jose-elias-alvarez/null-ls.nvim'
+  -- use 'jose-elias-alvarez/null-ls.nvim'
 end)
