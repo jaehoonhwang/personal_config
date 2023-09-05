@@ -6,7 +6,7 @@ vim.opt.encoding = 'utf-8'
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.softtabstop = 2
-vim.opt.expandtab = true
+vim.opt.expandtab = true -- use spaces instead of tab.
 vim.opt.smarttab = true
 vim.opt.autoindent = true
 
@@ -56,10 +56,10 @@ vim.opt.timeoutlen = 1000
 vim.opt.ttimeoutlen = 25
 
 -- Conceal level (https://vi.stackexchange.com/questions/7258/how-do-i-prevent-vim-from-hiding-symbols-in-markdown-and-json)
-vim.opt.conceallevel = 1
+vim.opt.conceallevel = 0
 
 -- Airline configuration
-vim.cmd([[ 
+vim.cmd([[
   let g:airline_powerline_fonts = 1
   let g:airline_section_z = ' %{strftime("%-I:%M %p")}'
   let g:airline_section_warning = ''
@@ -77,4 +77,8 @@ vim.cmd([[
 -- Go-yo
 vim.cmd([[
   let g:goyo_linernr = 1
+]])
+-- Show active line
+vim.cmd([[
+  se cursorline
 ]])

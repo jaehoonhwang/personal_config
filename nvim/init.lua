@@ -3,6 +3,11 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.mapleader = " "
 
+vim.cmd [[
+  set completeopt=menuone,noinsert,noselect
+  highlight! default link CmpItemKind CmpItemMenuDefault
+]]
+
 require('galbie')
 
 -- Functional wrapper for mapping custom keybindings
@@ -25,14 +30,10 @@ map("n", "<Leader>=", ":vertical resize +5<CR>")
 map("n", "<Leader>-", ":vertical resize -5<CR>")
 map("n", "<Leader>rp", ":resize 100<CR>")
 
--- linux system yoink
-map("n", "<Leader>y", "\"+y")
-map("v", "<Leader>y", "\"+y")
+-- system yoink
+map("n", "<Leader>y", "+y")
+map("v", "<Leader>y", "+y")
 map("n", "<Leader>Y", "gg\"+yG")
--- mac/window system yoink
---map("n", "<Leader>y", "\+y")
---map("v", "<Leader>y", "\+y")
---map("n", "<Leader>Y", "gg\+yG")
 
 -- changeword remap
 map("n", "<Leader>cn", "*''cgn")
@@ -71,10 +72,12 @@ map('v', '<Leader>d', '"_d')
 -- joink them things
 map('v', 'J', ":m '>+1<CR>gv=gv")
 map('v', 'K', ":m '>-2<CR>gv=gv")
-map('i', '<C-j>', ":m .+1<CR>==")
-map('i', '<C-k>', ":m .-2<CR>==")
 
 -- yeet the registers
 -- map('n', '<Leader>cr', )
 
-map('n', '<Leader>pwd', ':lcd%:p:h <CR>')
+map('n', '<Leader>pwd', ':cd %:p:h <CR>')
+map('n', '<Leader>cwd', ':cd %:h <CR>')
+
+map("n", "<Leader>fc", ":lua vim.lsp.buf.format()<CR>")
+map("n", "<SPACE>", "<Nop>")

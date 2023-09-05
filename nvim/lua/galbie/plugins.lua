@@ -23,7 +23,7 @@ packer.startup(function(use)
   -- * git
   use 'tpope/vim-fugitive'
   -- git diff viewer
-  use 'airblade/vim-gitgutter'
+  -- use 'airblade/vim-gitgutter'
   -- super nocompatible
   use 'tpope/vim-sensible'
   -- auto surrounds for things
@@ -41,12 +41,12 @@ packer.startup(function(use)
   -- HTML close tag
   use 'alvan/vim-closetag'
   -- indent line
-  use 'Yggdroot/indentLine'
+  --use 'Yggdroot/indentLine'
   -- Syntax highlighting
   use 'nvim-treesitter/nvim-treesitter'
-  use "yioneko/nvim-yati"
+  -- use "yioneko/nvim-yati"
   -- bullet stuff
-  use 'dkarter/bullets.vim'
+  -- use 'dkarter/bullets.vim'
   --
   use 'mbbill/undotree'
   use 'windwp/nvim-ts-autotag'
@@ -64,16 +64,19 @@ packer.startup(function(use)
   use 'williamboman/mason.nvim'
   use 'williamboman/mason-lspconfig.nvim'
   use 'onsails/lspkind-nvim'
+  use 'glepnir/lspsaga.nvim'
+  -- -- cmp
   use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/cmp-buffer'
   use 'hrsh7th/cmp-path'
   use 'hrsh7th/cmp-cmdline'
   use 'hrsh7th/nvim-cmp'
-  use 'glepnir/lspsaga.nvim'
   -- snip
   use 'L3MON4D3/LuaSnip'
-  -- Prettier; already supported by null-ls
-  -- use 'mhartington/formatter.nvim'
+  use 'saadparwaiz1/cmp_luasnip'
+
+  -- Prettier
+  use 'sbdchd/neoformat'
   -- linter
-  -- use 'jose-elias-alvarez/null-ls.nvim'
+  --use 'jose-elias-alvarez/null-ls.nvim'
 end)
