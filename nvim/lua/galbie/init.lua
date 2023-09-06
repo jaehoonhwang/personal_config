@@ -1,4 +1,5 @@
 require('galbie.plugins')
+require('galbie.rose_pine')
 require('galbie.sets')
 require('galbie.lspconfig')
 require('galbie.telescope')

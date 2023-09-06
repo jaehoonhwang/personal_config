@@ -82,3 +82,8 @@ vim.cmd([[
 vim.cmd([[
   se cursorline
 ]])
+-- 256 colorcs
+vim.cmd([[
+  set t_Co=256
+  set background=dark
+]])

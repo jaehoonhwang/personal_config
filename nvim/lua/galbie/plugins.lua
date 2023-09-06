@@ -9,15 +9,17 @@ vim.cmd [[packadd packer.nvim]]
 packer.startup(function(use)
   use 'wbthomason/packer.nvim'
   -- Your plugins go here
-  use 'vim-airline/vim-airline'
-  use 'vim-airline/vim-airline-themes'
+  --use 'vim-airline/vim-airline'
+  --use 'vim-airline/vim-airline-themes'
+  use 'feline-nvim/feline.nvim'
   -- Make NerdTreee file look nice
   use 'ryanoasis/vim-devicons'
   -- Distraction free setting
   use 'junegunn/goyo.vim'
   -- Color scheme
-  use 'flazz/vim-colorschemes'
-  use 'morhetz/gruvbox'
+  --use 'flazz/vim-colorschemes'
+  --use 'morhetz/gruvbox'
+  use { 'rose-pine/neovim', as = 'rose-pine' }
 
   -- Functionalities
   -- * git

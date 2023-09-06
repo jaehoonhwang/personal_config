@@ -20,7 +20,6 @@ function map(mode, lhs, rhs, opts)
 end
 
 vim.o.background = "dark"
-vim.cmd([[colorscheme gruvbox]])
 
 map("n", "<SPACE>", "<Nop>")
 map("i", "<C-c>", "<Esc>")
@@ -81,3 +80,7 @@ map('n', '<Leader>cwd', ':cd %:h <CR>')
 
 map("n", "<Leader>fc", ":lua vim.lsp.buf.format()<CR>")
 map("n", "<SPACE>", "<Nop>")
+
+-- Buffer next
+map("n", "<Leader>bp", ":bprevious<CR>")
+map("n", "<Leader>bn", ":bnext<CR>")
