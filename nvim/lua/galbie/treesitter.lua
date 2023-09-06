@@ -5,7 +5,7 @@ ts.setup {
   ensure_installed = {
     "c",
     "cpp",
-   "css",
+    "css",
     "go",
     "html",
     "java",

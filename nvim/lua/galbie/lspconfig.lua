@@ -7,6 +7,20 @@ local mason_lspconfig = require("mason-lspconfig")
 
 local augroup_format = vim.api.nvim_create_augroup("Format", { clear = true })
 
+local servers = {
+  pylsp = {},
+  tailwindcss = {},
+  cssls = {},
+  astro = {},
+  eslint = {},
+  rust_analyzer = {},
+  gopls = {},
+  html = {},
+  jsonls = {},
+  tsserver = require('lsp-config.tsserver'),
+  lua_ls = require('lsp-config.lua_ls'),
+}
+
 -- TODO(jaehoonh): https://github.com/hrsh7th/nvim-cmp/wiki/Advanced-techniques#add-parentheses-after-selecting-function-or-method-item
 cmp.setup({
   snippet = {
@@ -102,15 +116,6 @@ local enable_format_on_save = function(_, bufnr)
   })
 end
 
-mason.setup({})
-mason_lspconfig.setup {
-  ensure_installed = { "tailwindcss", "angularls", "astro", "clangd", "cssls",
-    "dockerls", "eslint", "gopls", "html", "jsonls", "jdtls", "tsserver", "ltex",
-    "marksman", "jedi_language_server", "rust_analyzer", "yamlls" },
-  automatic_installation = true,
-}
-
-
 
 local on_attach = function(client, bufnr)
   enable_format_on_save(client, bufnr)
@@ -119,82 +124,25 @@ end
 -- Set up completion using nvim_cmp with LSP source
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-nvim_lsp.tsserver.setup {
-  on_attach = on_attach,
-  filetypes = { "javascript", "typescript", "typescriptreact", "typescript.tsx" },
-  cmd = { "typescript-language-server", "--stdio" },
-  capabilities = capabilities
+-- Install Mason first.
+mason.setup({})
+mason_lspconfig.setup {
+  ensure_installed = { "tailwindcss", "angularls", "astro", "clangd", "cssls",
+    "dockerls", "eslint", "html", "jsonls", "jdtls", "tsserver", "ltex",
+    "marksman", "jedi_language_server", "rust_analyzer", "yamlls" },
+  automatic_installation = false, -- set this as true, for the first time.
 }
 
-nvim_lsp.lua_ls.setup {
-  capabilities = capabilities,
-  on_attach = on_attach,
-  settings = {
-    Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-        version = 'LuaJIT',
-      },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = { 'vim' },
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
-      },
-      -- Do not send telemetry data containing a randomized but unique identifier
-      telemetry = {
-        enable = false,
-      },
-    },
-  },
-}
+-- Install servers; ensure that it's after Mason according to its documentation.
+for name, user_options in pairs(servers) do
+  local options = {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
 
-nvim_lsp.pylsp.setup {
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-
-nvim_lsp.tailwindcss.setup {
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-
-nvim_lsp.cssls.setup {
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-
-nvim_lsp.astro.setup {
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-
-nvim_lsp.eslint.setup {
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-
-nvim_lsp.rust_analyzer.setup {
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-
-nvim_lsp.gopls.setup {
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-
-nvim_lsp.html.setup {
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-
-nvim_lsp.jsonls.setup {
-  on_attach = on_attach,
-  capabilities = capabilities
-}
+  options = vim.tbl_deep_extend('force', options, user_options)
+  nvim_lsp[name].setup(options)
+end
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -207,8 +155,8 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 
 -- Diagnostic symbols in the sign column (gutter)
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
+for t, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. t
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 end
 
