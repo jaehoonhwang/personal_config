@@ -1,5 +1,10 @@
 from random import randint
-adfjklasdjkflass = 1234
+from astroid import are
 
-for asdfj in range(10):
+
+for _ in range(10):
     print("hell")
+
+
+def lorem_ipsum():
+    return

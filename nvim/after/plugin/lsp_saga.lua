@@ -10,6 +10,13 @@ require("lspsaga").setup({
   }
 })
 
+-- RANT ON
+-- Thought hover_doc() was suppose to focus on the floating window so that I could
+-- scroll up and down, but it turns out that you need to press the hover_doc
+-- twice in order go INTO the floating window. That's a time wasted.
+-- Also, it doesn't have anything to do with nvim-cmp since it works fine.
+-- RANT OFF
+
 local opts = { noremap = false, silent = true }
 vim.keymap.set('n', '<leader>vd', '<Cmd>Lspsaga peek_definition<CR>', opts)
 vim.keymap.set('n', '<leader>vsd', '<Cmd>Lspsaga show_line_diagnostics<CR>', opts)
