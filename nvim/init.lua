@@ -30,8 +30,8 @@ map("n", "<Leader>-", ":vertical resize -5<CR>")
 map("n", "<Leader>rp", ":resize 100<CR>")
 
 -- system yoink
-map("n", "<Leader>y", '"+y"')
-map("v", "<Leader>y", '"+y"')
+map("n", "<Leader>y", '"+y')
+map("v", "<Leader>y", '"+y')
 map("n", "<Leader>Y", "gg\"+yG")
 
 -- changeword remap
